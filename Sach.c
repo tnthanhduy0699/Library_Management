@@ -306,13 +306,61 @@ void TimKiemSach_TenSach(int bookISBN[], char bookName[][MaxNameLen], char authN
 	}
 }
 //15. Thong ke so luong sach trong thu vien
-int ThongKeSoLuongSach(int bookCount)
+void ThongKeSoLuongSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxNameLen], char Publisher[MaxBook][MaxNameLen], int PublishYear[MaxBook], char bookType[MaxBook][MaxNameLen], int bookPrice[MaxBook], int bookAmount[], int bookCount)
 {
+	//Kiem tra so luong sach hien ta
 	if (bookCount == 0)
 	{
 		printf("Hien tai chua co quyen sach nao trong thu vien!\n");
-		return 0;
+		return;
 	}
+	
 	printf("So luong sach hien tai: %d quyen\n", bookCount);
-	return bookCount;
+
+	//Goi lai ham XemSach de in ra so luong sach duoi dang bang thong ke
+	XemSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
+
+	// return bookCount;
+}
+//16. Thong ke sach theo the loai
+void ThongKeSachTheoTheLoai(char bookType[][MaxNameLen], int bookCount)
+{
+	int duplicateTypeAmount[MaxBook] = {0}; //Mang dem so luong sach cua 1 the loai
+	char duplicateType[MaxBook][MaxNameLen]; //Mang luu ten cac the loai
+	int TypeCount = 0; //Mang luu so luong cac the loai, neu trung thi mang van = 0
+	
+	//Duyet qua tung quyen sach trong thu vien
+	for (int i = 0; i < bookCount; i++)
+	{
+		//found luon bang 0 o dau moi vong lap de bat dau kiem tra lai tu dau moi khi qua 1 sach moi
+		int found = 0;
+		for (int j = 0; j < TypeCount; j++)
+		{
+			if (strcmp(bookType[i], duplicateType[j]) == 0)
+			{
+				duplicateTypeAmount[j]++;
+				found = 1;
+				break;
+			}
+			
+		}
+		
+		//Neu found van bang 0, loai sach chua ton tai trong mang Type => Them loai sach vao mang duplicateType, tang duplicateTypeAmount, tang TypeCount
+		if (found == 0)
+		{
+			strcpy(duplicateType[TypeCount], bookType[i]); //Them the loai sach vao mang chua cac kieu sach
+			duplicateTypeAmount[TypeCount] = 1; //Tang so luong len 1 sau khi tang
+			TypeCount++; //Tang loai sach len để 
+		}
+	}
+	
+	printf("Bang thong ke: \n");
+	printf("+-----------------------+---------------+\n");
+	printf("|       The loai        | So luong sach |\n");
+	printf("+-----------------------+---------------+\n");
+	for (int i = 0; i < TypeCount; i++)
+	{
+		printf("| %-21s | %03d quyen     |\n", duplicateType[i], duplicateTypeAmount[i]);
+	}
+	printf("+-----------------------+---------------+\n");
 }

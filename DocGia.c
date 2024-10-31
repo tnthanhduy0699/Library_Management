@@ -336,13 +336,19 @@ void TimKiemDocGia_Ten(int readerNo[], char readerName[][MaxNameLen], char reade
 	}
 }
 //17. Thong ke so luong doc gia
-int ThongKeSoLuongDocGia(int readerCount)
+void ThongKeSoLuongDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int readerCount)
 {
+	//Kiem tra so luong doc gia hien ta
 	if (readerCount == 0)
 	{
 		printf("Hien tai chua co doc gia nao!\n");
-		return 0;
+		return;
 	}
+
 	printf("So luong doc gia hien tai: %d nguoi\n", readerCount);
-	return readerCount;
+	
+	//Goi lai ham XemDocGia de in ra so luong doc gia duoi dang bang thong ke
+	XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
+	
+	// return readerCount;
 }

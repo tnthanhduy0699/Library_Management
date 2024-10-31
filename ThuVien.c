@@ -101,10 +101,13 @@ int main()
 			TimKiemSach_TenSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
 			break;
 		case 15:
-			ThongKeSoLuongSach(bookCount);
+			ThongKeSoLuongSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
+			break;
+		case 16:
+			ThongKeSachTheoTheLoai(bookType, bookCount);
 			break;
 		case 17:
-			ThongKeSoLuongDocGia(readerCount);
+			ThongKeSoLuongDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
 			break;
 		case 0: 
 			printf("Chao tam biet!\n");
