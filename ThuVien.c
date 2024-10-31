@@ -109,6 +109,9 @@ int main()
 		case 17:
 			ThongKeSoLuongDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
 			break;
+		case 18:
+			ThongKeDocGiaTheoGioiTinh(readerGender, readerCount);
+			break;
 		case 0: 
 			printf("Chao tam biet!\n");
 			break;

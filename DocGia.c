@@ -349,6 +349,44 @@ void ThongKeSoLuongDocGia(int readerNo[], char readerName[][MaxNameLen], char re
 	
 	//Goi lai ham XemDocGia de in ra so luong doc gia duoi dang bang thong ke
 	XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
-	
-	// return readerCount;
+}
+//18. Thong ke so luong doc gia hien tai theo gioi tinh
+void ThongKeDocGiaTheoGioiTinh(char readerGender[MaxReader][MaxNameLen], int readerCount)
+{
+	int GenderCount = 0;
+	int duplicateGenderAmount[MaxReader] = {0};
+	char duplicateGender[MaxReader][MaxNameLen];
+
+	for (int i = 0; i < readerCount; i++)
+	{
+		int found = 0;
+		//Kiem tra xem readerGender da ton tai trong mang duplicateGender hay chua? Neu co roi thi tang so luong duplicateGenderAmount len
+		for (int j = 0; j < GenderCount; j++)
+		{
+			if (strcmp(readerGender[i], duplicateGender[j]) == 0)
+			{
+				duplicateGenderAmount[j]++;
+				found = 1;
+				break;
+			}
+		}
+		//Neu readerGender chua ton tai trong duplicateGender thi them vao vao dat gia tri duplicateGenderAmount = 1, tang loai goi tinh GenderCount len.
+		if (found == 0)
+		{
+			strcpy(duplicateGender[GenderCount], readerGender[i]);
+			duplicateGenderAmount[GenderCount] = 1;
+			GenderCount++;
+		}
+
+	}
+	printf("Bang thong ke: \n");
+	printf("+-----------+------------------+\n");
+	printf("| Gioi tinh | So luong doc gia |\n");
+	printf("+-----------+------------------+\n");
+	for (int i = 0; i < GenderCount; i++)
+	{
+		printf("| %-9s | %03d nguoi        |\n", duplicateGender[i], duplicateGenderAmount[i]);
+	}
+	printf("+-----------+------------------+\n");
+
 }
