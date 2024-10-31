@@ -1,4 +1,3 @@
-extern int bookCount;
 #define MaxBook 100
 #define MaxNameLen 50
 

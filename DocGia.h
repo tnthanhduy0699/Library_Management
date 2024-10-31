@@ -1,4 +1,3 @@
-extern int readerCount;
 #define MaxReader 100
 #define MaxNameLen 50
 

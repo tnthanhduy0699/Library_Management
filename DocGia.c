@@ -95,7 +95,7 @@ void ChinhSuaThongTinDocGia(int readerNo[], char readerName[][MaxNameLen], char 
 	printf("Nhap so thu tu doc gia can chinh sua: ");
 	scanf("%d", &index);
 
-	if (index < 0 || index > readerCount - 1)
+	if (index < 0 || index - 1 > readerCount - 1)
 	{
 		printf("Khong ton tai doc gia nay!\n");
 		return;
@@ -116,61 +116,61 @@ void ChinhSuaThongTinDocGia(int readerNo[], char readerName[][MaxNameLen], char 
 	switch (choice)
 	{
 	case 1:
-		//Chinh sua ID
-		printf("Nhap ma doc gia moi:");
-		scanf("%d", &readerNo[index]);
+		//Chinh sua ma so doc gia
+		printf("Nhap ma doc gia moi: ");
+		scanf("%d", &readerNo[index-1]);
 		printf("Cap nhat lai ma doc gia thanh cong!\n");
 		break;
 	case 2:
 		//Chinh sua ho ten
 		printf("Nhap ho ten doc gia moi: ");
 		getchar();
-		fgets(readerName[index], MaxNameLen, stdin);
-		readerName[index][strcspn(readerName[index], "\n")] = '\0';
+		fgets(readerName[index-1], MaxNameLen, stdin);
+		readerName[index-1][strcspn(readerName[index-1], "\n")] = '\0';
 		printf("Cap nhat lai ho ten doc gia thanh cong!\n");
 		break;
 	case 3:
 		//Chinh sua so CCCD
 		printf("Nhap CCCD cua doc gia: ");
 		getchar();
-		fgets(readerID[index], MaxNameLen, stdin);
-		readerID[index][strcspn(readerID[index], "\n")] = '\0';
+		fgets(readerID[index-1], MaxNameLen, stdin);
+		readerID[index-1][strcspn(readerID[index-1], "\n")] = '\0';
 		printf("Cap nhat lai so CCCD thanh cong!\n");
 		break;
 	case 4:
 		//Chinh sua ngay thang nam sinh
 		printf("Nhap ngay, thang, nam sinh moi: ");
-		scanf("%d %d %d", &readerDate[index], &readerMonth[index], &readerYear[index]);
+		scanf("%d %d %d", &readerDate[index-1], &readerMonth[index-1], &readerYear[index-1]);
 		printf("Cap nhat ngay, thang, nam sinh thanh cong!\n");
 		break;
 	case 5:
 		//Chinh sua gioi tinh
 		printf("Nhap lai gioi tinh: ");
 		getchar();
-		fgets(readerGender[index], MaxNameLen, stdin);
-		readerGender[index][strcspn(readerGender[index], "\n")] = '\0';
+		fgets(readerGender[index-1], MaxNameLen, stdin);
+		readerGender[index-1][strcspn(readerGender[index-1], "\n")] = '\0';
 		printf("Cap nhat lai gioi tinh thanh cong!\n");
 		break;
 	case 6:
 		//Chinh sua email
 		printf("Nhap email moi: ");
 		getchar();
-		fgets(readerEmail[index], MaxNameLen, stdin);
-		readerEmail[index][strcspn(readerEmail[index], "\n")] = '\0';
+		fgets(readerEmail[index-1], MaxNameLen, stdin);
+		readerEmail[index-1][strcspn(readerEmail[index-1], "\n")] = '\0';
 		printf("Cap nhat lai email thanh cong!\n");
 		break;
 	case 7:
 		//Chinh sua dia chi
-		printf("Nhap ngay, thang, nam sinh moi: ");
+		printf("Nhap dia chi moi: ");
 		getchar();
-		fgets(readerLocation[index], MaxNameLen, stdin);
-		readerLocation[index][strcspn(readerLocation[index], "\n")] = '\0';
+		fgets(readerLocation[index-1], MaxNameLen, stdin);
+		readerLocation[index-1][strcspn(readerLocation[index-1], "\n")] = '\0';
 		printf("Cap nhat lai dia chi thanh cong!\n");
 		break;
 	case 8:
 		//Chinh sua ngay lap the muon sach
 		printf("Nhap ngay, thang, nam lap the muon sach moi: ");
-		scanf("%d %d %d", &libraryCardDate[index], &libraryCardMonth[index], &libraryCardYear[index]);
+		scanf("%d %d %d", &libraryCardDate[index-1], &libraryCardMonth[index-1], &libraryCardYear[index-1]);
 		printf("Cap nhat lai ngay, thang, nam lap the muon sach thanh cong!\n");
 		break;
 	default:
@@ -181,11 +181,18 @@ void ChinhSuaThongTinDocGia(int readerNo[], char readerName[][MaxNameLen], char 
 //4.  Xoa thong tin mot doc gia
 int XoaDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int readerCount)
 {
+	//Kiem tra so luong doc gia hien tai
+	if (readerCount == 0)
+	{
+		printf("Chua co doc gia. Vui long them thong tin doc gia truoc khi xoa!\n");
+		return 0;
+	}
+
 	int pos;
 	printf("Nhap vi tri doc gia can xoa: ");
 	scanf("%d", &pos);
 
-	for (int i = pos; i < readerCount - 1; i++)
+	for (int i = pos-1; i < readerCount - 1; i++)
 	{
 		readerNo[i] = readerNo[i + 1];
 		strcpy(readerName[i], readerName[i + 1]);
@@ -253,7 +260,7 @@ void TimKiemDocGia_CCCD(int readerNo[], char readerName[][MaxNameLen], char read
 		}
 	}
 
-	if (!found)
+	if (found == 0)
 	{
 		printf("Khong tim thay doc gia co so CCCD: \"%s\" trong danh sach\n", searchCCCD);
 	}
@@ -317,7 +324,7 @@ void TimKiemDocGia_Ten(int readerNo[], char readerName[][MaxNameLen], char reade
 		}
 	}
 
-	if (!found)
+	if (found == 0)
 	{
 		printf("Khong tim thay doc gia \"%s\" trong danh sach\n", searchName);
 	}

@@ -8,36 +8,60 @@
 #define MaxBook 100
 
 
-//Mang chua thong tin doc gia
-int readerNo[MaxReader];
-char readerName[MaxReader][MaxNameLen];
-char readerID[MaxReader][MaxNameLen];
-int readerDate[MaxReader];
-int readerMonth[MaxReader];
-int readerYear[MaxReader];
-char readerGender[MaxReader][MaxNameLen];
-char readerEmail[MaxReader][MaxNameLen];
-char readerLocation[MaxReader][MaxNameLen];
-int libraryCardDate[MaxReader];
-int libraryCardMonth[MaxReader];
-int libraryCardYear[MaxReader];
-int readerCount = 0;
-//Mang chua thong tin sach
-int bookISBN[MaxBook];
-char bookName[MaxBook][MaxNameLen];
-char authName[MaxBook][MaxNameLen];
-char Publisher[MaxBook][MaxNameLen];
-int PublishYear[MaxBook];
-char bookType[MaxBook][MaxNameLen];
-int bookPrice[MaxBook];
-int bookAmount[MaxBook];
-int bookCount = 0;
+// //Mang chua thong tin doc gia
+// int readerNo[MaxReader];
+// char readerName[MaxReader][MaxNameLen];
+// char readerID[MaxReader][MaxNameLen];
+// int readerDate[MaxReader];
+// int readerMonth[MaxReader];
+// int readerYear[MaxReader];
+// char readerGender[MaxReader][MaxNameLen];
+// char readerEmail[MaxReader][MaxNameLen];
+// char readerLocation[MaxReader][MaxNameLen];
+// int libraryCardDate[MaxReader];
+// int libraryCardMonth[MaxReader];
+// int libraryCardYear[MaxReader];
+// int readerCount = 0;
+// //Mang chua thong tin sach
+// int bookISBN[MaxBook];
+// char bookName[MaxBook][MaxNameLen];
+// char authName[MaxBook][MaxNameLen];
+// char Publisher[MaxBook][MaxNameLen];
+// int PublishYear[MaxBook];
+// char bookType[MaxBook][MaxNameLen];
+// int bookPrice[MaxBook];
+// int bookAmount[MaxBook];
+// int bookCount = 0;
 int main()
 {
+	//Mang chua thong tin doc gia
+	int readerNo[MaxReader];
+	char readerName[MaxReader][MaxNameLen];
+	char readerID[MaxReader][MaxNameLen];
+	int readerDate[MaxReader];
+	int readerMonth[MaxReader];
+	int readerYear[MaxReader];
+	char readerGender[MaxReader][MaxNameLen];
+	char readerEmail[MaxReader][MaxNameLen];
+	char readerLocation[MaxReader][MaxNameLen];
+	int libraryCardDate[MaxReader];
+	int libraryCardMonth[MaxReader];
+	int libraryCardYear[MaxReader];
+	int readerCount = 0;
+	//Mang chua thong tin sach
+	int bookISBN[MaxBook];
+	char bookName[MaxBook][MaxNameLen];
+	char authName[MaxBook][MaxNameLen];
+	char Publisher[MaxBook][MaxNameLen];
+	int PublishYear[MaxBook];
+	char bookType[MaxBook][MaxNameLen];
+	int bookPrice[MaxBook];
+	int bookAmount[MaxBook];
+	int bookCount = 0;
 	int opt;
 	do
 	{
-		printf("*** Ung dung quan ly thu vien ***\n");
+		printf("*** Ung Dung Quan Ly Thu Vien ***\n");
 		printf("1.  Xem danh sach doc gia trong thu vien\n");
 		printf("2.  Them doc gia\n");
 		printf("3.  Chinh sua thong tin mot doc gia\n");

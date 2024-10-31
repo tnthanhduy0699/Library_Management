@@ -86,7 +86,7 @@ void ChinhSuaThongTinSach(int bookISBN[], char bookName[][MaxNameLen], char auth
 	printf("Nhap so thu tu sach can chinh sua: ");
 	scanf("%d", &bookindex);
 
-	if (bookindex < 0 || bookindex > bookCount)
+	if (bookindex < 0 || bookindex - 1 > bookCount - 1)
 	{
 		printf("Khong ton quyen sach nay!\n");
 		return;
@@ -108,58 +108,58 @@ void ChinhSuaThongTinSach(int bookISBN[], char bookName[][MaxNameLen], char auth
 	{
 	case 1:
 		//Chinh sua ma sach
-		printf("Nhap ID moi:");
-		scanf("%d", &bookISBN[bookindex]);
+		printf("Nhap ma sach moi: ");
+		scanf("%d", &bookISBN[bookindex-1]);
 		printf("Cap nhat ma sach thanh cong!\n");
 		break;
 	case 2:
 		//Chinh sua ten sach
 		printf("Nhap ten sach moi: ");
 		getchar();
-		fgets(bookName[bookindex], MaxNameLen, stdin);
-		bookName[bookindex][strcspn(bookName[bookindex], "\n")] = '\0';
+		fgets(bookName[bookindex-1], MaxNameLen, stdin);
+		bookName[bookindex-1][strcspn(bookName[bookindex-1], "\n")] = '\0';
 		printf("Cap nhat ten sach thanh cong!\n");
 		break;
 	case 3:
 		//Chinh sua ten tac gia
 		printf("Nhap ten tac gia moi: ");
 		getchar();
-		fgets(authName[bookindex], MaxNameLen, stdin);
-		authName[bookindex][strcspn(authName[bookindex], "\n")] = '\0';
+		fgets(authName[bookindex-1], MaxNameLen, stdin);
+		authName[bookindex-1][strcspn(authName[bookindex-1], "\n")] = '\0';
 		printf("Cap nhat ten tac gia thanh cong!\n");
 		break;
 	case 4:
 		//Chinh sua ten nha xuat ban
 		printf("Nhap ten nha xuat ban moi: ");
 		getchar();
-		fgets(Publisher[bookindex], MaxNameLen, stdin);
-		Publisher[bookindex][strcspn(Publisher[bookindex], "\n")] = '\0';
+		fgets(Publisher[bookindex-1], MaxNameLen, stdin);
+		Publisher[bookindex-1][strcspn(Publisher[bookindex-1], "\n")] = '\0';
 		printf("Cap nhat ten nha xuat ban thanh cong!\n");
 		break;
 	case 5:
 		//Chinh sua nam xuat ban sach
 		printf("Nhap nam xuat ban moi: ");
-		scanf("%d", &PublishYear[bookindex]);
+		scanf("%d", &PublishYear[bookindex-1]);
 		printf("Cap nhat nam xuat ban thanh cong!\n");
 		break;
 	case 6:
 		//Chinh sua the loai sach
 		printf("Nhap the loai sach moi: ");
 		getchar();
-		fgets(bookType[bookindex], MaxNameLen, stdin);
-		bookType[bookindex][strcspn(bookType[bookindex], "\n")] = '\0';
+		fgets(bookType[bookindex-1], MaxNameLen, stdin);
+		bookType[bookindex-1][strcspn(bookType[bookindex-1], "\n")] = '\0';
 		printf("Cap nhat the loai sach thanh cong!\n");
 		break;
 	case 7:
 		//Chinh sua gia tien cua sach
 		printf("Nhap gia tien moi: ");
-		scanf("%d", &bookPrice[bookindex]);
+		scanf("%d", &bookPrice[bookindex-1]);
 		printf("Cap nhat lai gia tien cua sach thanh cong!\n");
 		break;
 	case 8:
 		//Chinh sua so luong sach
 		printf("Nhap lai so luong sach: ");
-		scanf("%d", &bookAmount[bookindex]);
+		scanf("%d", &bookAmount[bookindex-1]);
 		printf("Cap nhat lai so luong sach thanh cong!\n");
 		break;
 	default:
@@ -170,11 +170,18 @@ void ChinhSuaThongTinSach(int bookISBN[], char bookName[][MaxNameLen], char auth
 //10. Xoa sach
 int XoaSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxNameLen], char Publisher[MaxBook][MaxNameLen], int PublishYear[MaxBook], char bookType[MaxBook][MaxNameLen], int bookPrice[MaxBook], int bookAmount[], int bookCount)
 {
+	//Kiem tra so luong sach hien tai
+	if (bookCount == 0)
+	{
+		printf("Chua co sach trong thu vien. Vui long them thong tin sach truoc khi xoa!\n");
+		return 0;
+	}
+
 	int bookpos;
 	printf("Nhap vi tri sach can xoa: ");
 	scanf("%d", &bookpos);
 
-	for (int i = bookpos; i < bookCount - 1; i++)
+	for (int i = bookpos-1; i < bookCount - 1; i++)
 	{
 		bookISBN[i] = bookISBN[i + 1];
 		strcpy(bookName[i], bookName[i + 1]);
@@ -230,7 +237,7 @@ void TimKiemSach_ISBN(int bookISBN[], char bookName[][MaxNameLen], char authName
 		}
 	}
 	
-	if (!bookfound)
+	if (bookfound == 0)
 	{
 		printf("Khong tim thay sach co ISBN: %d trong thu vien", searchBookISBN);
 	}
@@ -288,7 +295,7 @@ void TimKiemSach_TenSach(int bookISBN[], char bookName[][MaxNameLen], char authN
 		}
 	}
 	
-	if (!bookfound)
+	if (bookfound == 0)
 	{
 		printf("Khong tim thay sach \"%s\" trong thu vien", searchBookName);
 	}
@@ -319,8 +326,6 @@ void ThongKeSoLuongSach(int bookISBN[], char bookName[][MaxNameLen], char authNa
 
 	//Goi lai ham XemSach de in ra so luong sach duoi dang bang thong ke
 	XemSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
-
-	// return bookCount;
 }
 //16. Thong ke sach theo the loai
 void ThongKeSachTheoTheLoai(char bookType[][MaxNameLen], int bookCount)
