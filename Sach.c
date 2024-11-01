@@ -33,6 +33,13 @@ void XemSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxNam
 //8.  Them sach
 int ThemSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxNameLen], char Publisher[MaxBook][MaxNameLen], int PublishYear[MaxBook], char bookType[MaxBook][MaxNameLen], int bookPrice[MaxBook], int bookAmount[], int bookCount)
 {
+	//Kiem tra so luong sach hien tai
+	if (bookCount >= MaxBook)
+	{
+		printf("So luong sach da day. Khong the them sach duoc nua!\n");
+		return 0;
+	}
+	
 	printf("Nhap ma sach: ");
 	scanf("%d", &bookISBN[bookCount]);
 
@@ -180,8 +187,14 @@ int XoaSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxName
 	int bookpos;
 	printf("Nhap vi tri sach can xoa: ");
 	scanf("%d", &bookpos);
+	//Xet dieu kien cua pos sau khi nhap
+	if (bookpos < 0 || bookpos - 1 > bookCount - 1)
+	{
+		printf("Khong ton tai doc gia nay!\n");
+		return 0;
+	}
 
-	for (int i = bookpos-1; i < bookCount - 1; i++)
+	for (int i = bookpos - 1; i < bookCount - 1; i++)
 	{
 		bookISBN[i] = bookISBN[i + 1];
 		strcpy(bookName[i], bookName[i + 1]);

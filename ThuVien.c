@@ -2,36 +2,12 @@
 #include <string.h>
 #include "DocGia.h"
 #include "Sach.h"
+#include "LapPhieu.h"
 
 #define MaxReader 100
 #define MaxNameLen 50
 #define MaxBook 100
 
-
-// //Mang chua thong tin doc gia
-// int readerNo[MaxReader];
-// char readerName[MaxReader][MaxNameLen];
-// char readerID[MaxReader][MaxNameLen];
-// int readerDate[MaxReader];
-// int readerMonth[MaxReader];
-// int readerYear[MaxReader];
-// char readerGender[MaxReader][MaxNameLen];
-// char readerEmail[MaxReader][MaxNameLen];
-// char readerLocation[MaxReader][MaxNameLen];
-// int libraryCardDate[MaxReader];
-// int libraryCardMonth[MaxReader];
-// int libraryCardYear[MaxReader];
-// int readerCount = 0;
-// //Mang chua thong tin sach
-// int bookISBN[MaxBook];
-// char bookName[MaxBook][MaxNameLen];
-// char authName[MaxBook][MaxNameLen];
-// char Publisher[MaxBook][MaxNameLen];
-// int PublishYear[MaxBook];
-// char bookType[MaxBook][MaxNameLen];
-// int bookPrice[MaxBook];
-// int bookAmount[MaxBook];
-// int bookCount = 0;
 int main()
 {
 	//Mang chua thong tin doc gia
@@ -47,6 +23,7 @@ int main()
 	int libraryCardDate[MaxReader];
 	int libraryCardMonth[MaxReader];
 	int libraryCardYear[MaxReader];
+	int expiredCardYear[MaxReader];
 	int readerCount = 0;
 	//Mang chua thong tin sach
 	int bookISBN[MaxBook];
@@ -59,6 +36,10 @@ int main()
 	int bookAmount[MaxBook];
 	int bookCount = 0;
 	int opt;
+
+	int borrowDate[MaxBook];
+	int borrowMonth[MaxBook];
+	int borrowYear[MaxBook];
 	do
 	{
 		printf("*** Ung Dung Quan Ly Thu Vien ***\n");
@@ -89,10 +70,10 @@ int main()
 		switch (opt)
 		{
 		case 1:
-			XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
+			XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, expiredCardYear, readerCount);
 			break;
 		case 2:
-			readerCount = ThemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
+			readerCount = ThemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, expiredCardYear, readerCount);
 			break;
 		case 3:
 			ChinhSuaThongTinDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
@@ -124,6 +105,9 @@ int main()
 		case 12:
 			TimKiemSach_TenSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
 			break;
+		case 13:
+			LapPhieuMuonSach(readerNo, borrowDate, borrowMonth, borrowYear, bookISBN, readerCount, bookCount);
+			break;	
 		case 15:
 			ThongKeSoLuongSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
 			break;
@@ -131,7 +115,7 @@ int main()
 			ThongKeSachTheoTheLoai(bookType, bookCount);
 			break;
 		case 17:
-			ThongKeSoLuongDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
+			ThongKeSoLuongDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, expiredCardYear, readerCount);
 			break;
 		case 18:
 			ThongKeDocGiaTheoGioiTinh(readerGender, readerCount);

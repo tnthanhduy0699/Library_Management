@@ -3,7 +3,7 @@
 #include "DocGia.h"
 
 //1.  Xem danh sach doc gia trong thu vien
-void XemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int readerCount)
+void XemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int expiredCardYear[MaxReader], int readerCount)
 {
 	//Kiem tra so luong doc gia hien tai
 	if (readerCount == 0)
@@ -12,12 +12,12 @@ void XemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
 		return;
 	}
 
-	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
-	printf("|    No.   |      Ho ten doc gia      |     CCCD      | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  |\n");
-	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
+	printf("|    No.   |      Ho ten doc gia      |     CCCD      | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  | Ngay het han the |\n");
+	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 	for (int i = 0; i < readerCount; i++)
 	{
-		printf("| %03d      | %-25s| %-13s | %02d / %02d / %04d      | %-9s | %-25s | %-13s | %02d / %02d / %04d |\n",
+		printf("| %03d      | %-25s| %-13s | %02d / %02d / %04d      | %-9s | %-25s | %-13s | %02d / %02d / %04d | %02d / %02d / %04d   |\n",
 		readerNo[i],
 		readerName[i],
 		readerID[i],
@@ -29,13 +29,16 @@ void XemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
 		readerLocation[i],
 		libraryCardDate[i],
 		libraryCardMonth[i],
-		libraryCardYear[i]);
+		libraryCardYear[i],
+		libraryCardDate[i],
+		libraryCardMonth[i],
+		expiredCardYear[i]);
 	}
-	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+	printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 
 }
 //2.  Them doc gia
-int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int readerCount)
+int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int expiredCardYear[MaxReader], int readerCount)
 {
 	//Kiem tra so luong doc gia hien tai
 	if (readerCount >= MaxReader)
@@ -44,6 +47,7 @@ int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
 		return 0;
 	}
 	
+	//Ma doc gia toi da 3 chu so. VD: 999
 	printf("Nhap ma doc gia: ");
 	scanf("%d", &readerNo[readerCount]);
 
@@ -53,6 +57,7 @@ int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
 	//Xoa dau "\n" xuong dong
 	readerName[readerCount][strcspn(readerName[readerCount], "\n")] = '\0';
 
+	//CCCD toi da 12 chu so
     printf("Nhap CCCD cua doc gia: ");
 	fgets(readerID[readerCount], MaxNameLen, stdin);
 	readerID[readerCount][strcspn(readerID[readerCount], "\n")] = '\0';
@@ -76,6 +81,8 @@ int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
 
 	printf("Nhap ngay, thang, nam tao the thu vien: ");
 	scanf("%d %d %d", &libraryCardDate[readerCount], &libraryCardMonth[readerCount], &libraryCardYear[readerCount]);
+
+	expiredCardYear[readerCount] = libraryCardYear[readerCount] + 4;
 
 	readerCount++;
 	printf("Them doc gia thanh cong!\n");
@@ -191,6 +198,12 @@ int XoaDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Max
 	int pos;
 	printf("Nhap vi tri doc gia can xoa: ");
 	scanf("%d", &pos);
+	//Xet dieu kien cua pos sau khi nhap
+	if (pos < 0 || pos - 1 > readerCount - 1)
+	{
+		printf("Khong ton tai doc gia nay!\n");
+		return 0;
+	}
 
 	for (int i = pos-1; i < readerCount - 1; i++)
 	{
@@ -237,9 +250,9 @@ void TimKiemDocGia_CCCD(int readerNo[], char readerName[][MaxNameLen], char read
 		{
 			if (found == 0)
 			{
-				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
-				printf("|    No.   |      Ho ten doc gia      |     CCCD      | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  |\n");
-				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
+				printf("|    No.   |      Ho ten doc gia      |     CCCD      | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  | Ngay het han the |\n");
+				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 			}
 			
 			printf("| %03d      | %-25s| %-13s | %02d / %02d / %04d      | %-9s | %-25s | %-13s | %02d / %02d / %04d |\n",
@@ -266,7 +279,7 @@ void TimKiemDocGia_CCCD(int readerNo[], char readerName[][MaxNameLen], char read
 	}
 	else
 	{
-		printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+		printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 		if (found >= 2)
 		{
 			printf("Da tim thay %d doc gia cung so CCCD\n", found);
@@ -301,9 +314,9 @@ void TimKiemDocGia_Ten(int readerNo[], char readerName[][MaxNameLen], char reade
 		{
 			if (found == 0)
 			{
-				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
-				printf("|    ID    |      Ho ten doc gia      |      CCCD     | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  |\n");
-				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
+				printf("|    ID    |      Ho ten doc gia      |      CCCD     | Ngay thang nam sinh | Gioi tinh |           Email           |    Dia chi    |  Ngay lap the  | Ngay het han the |\n");
+				printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 			}
 			
 			printf("|  %04d    | %-25s| %-13s | %02d / %02d / %04d      | %-9s | %-25s | %-13s | %02d / %02d / %04d |\n",
@@ -330,7 +343,7 @@ void TimKiemDocGia_Ten(int readerNo[], char readerName[][MaxNameLen], char reade
 	}
 	else
 	{
-		printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+\n");
+		printf("+----------+--------------------------+---------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
 		if (found >= 2)
 		{
 			printf("Da tim thay %d doc gia co cung ten\n", found);
@@ -343,7 +356,7 @@ void TimKiemDocGia_Ten(int readerNo[], char readerName[][MaxNameLen], char reade
 	}
 }
 //17. Thong ke so luong doc gia
-void ThongKeSoLuongDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int readerCount)
+void ThongKeSoLuongDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][MaxNameLen], int readerDate[], int readerMonth[], int readerYear[], char readerGender[][MaxNameLen], char readerEmail[MaxReader][MaxNameLen], char readerLocation[][MaxNameLen], int libraryCardDate[], int libraryCardMonth[], int libraryCardYear[], int expiredCardYear[MaxReader], int readerCount)
 {
 	//Kiem tra so luong doc gia hien ta
 	if (readerCount == 0)
@@ -355,7 +368,7 @@ void ThongKeSoLuongDocGia(int readerNo[], char readerName[][MaxNameLen], char re
 	printf("So luong doc gia hien tai: %d nguoi\n", readerCount);
 	
 	//Goi lai ham XemDocGia de in ra so luong doc gia duoi dang bang thong ke
-	XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, readerCount);
+	XemDocGia(readerNo, readerName, readerID, readerDate, readerMonth, readerYear, readerGender, readerEmail, readerLocation, libraryCardDate, libraryCardMonth, libraryCardYear, expiredCardYear, readerCount);
 }
 //18. Thong ke so luong doc gia hien tai theo gioi tinh
 void ThongKeDocGiaTheoGioiTinh(char readerGender[MaxReader][MaxNameLen], int readerCount)
