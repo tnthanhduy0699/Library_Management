@@ -61,9 +61,30 @@ int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
     printf("Nhap CCCD cua doc gia: ");
 	fgets(readerID[readerCount], MaxNameLen, stdin);
 	readerID[readerCount][strcspn(readerID[readerCount], "\n")] = '\0';
-
-	printf("Nhap ngay, thang, nam sinh: ");
-	scanf("%d %d %d", &readerDate[readerCount], &readerMonth[readerCount], &readerYear[readerCount]);
+	//Nhap ngay sinh, ngay sinh khong the be hon 1 va lon hon 31
+	do {
+        printf("Nhap ngay sinh: ");
+        scanf("%d", &readerDate[readerCount]);
+        if (readerDate[readerCount] < 1 || readerDate[readerCount] > 31) {
+            printf("Ngay khong hop le. Vui long nhap lai!\n");
+        }
+    } while (readerDate[readerCount] < 1 || readerDate[readerCount] > 31);
+	//Nhap thang sinh, thang sinh khong the nho hon 1 va lon hon 12
+    do {
+        printf("Nhap thang sinh: ");
+        scanf("%d", &readerMonth[readerCount]);
+        if (readerMonth[readerCount] < 1 || readerMonth[readerCount] > 12) {
+            printf("Thang khong hop le. Vui long nhap lai!\n");
+        }
+    } while (readerMonth[readerCount] < 1 || readerMonth[readerCount] > 12);
+	//Nhap nam sinh, nam sinh khong the nho hon 1900 va lon hon 2024
+    do {
+        printf("Nhap nam sinh: ");
+        scanf("%d", &readerYear[readerCount]);
+        if (readerYear[readerCount] < 1900 || readerYear[readerCount] > 2024) {
+            printf("Nam khong hop le. Vui long nhap lai!\n");
+        }
+    } while (readerYear[readerCount] < 1900 || readerYear[readerCount] > 2024);
 
     printf("Nhap gioi tinh: ");
     getchar();
@@ -78,9 +99,30 @@ int ThemDocGia(int readerNo[], char readerName[][MaxNameLen], char readerID[][Ma
     printf("Nhap dia chi (Thanh pho): ");
     fgets(readerLocation[readerCount], MaxNameLen, stdin);
 	readerLocation[readerCount][strcspn(readerLocation[readerCount], "\n")] = '\0';
+	//Nhap ngay thang nam tao the thu vien, kiem tra dieu kien ngay thang nam hop le
+	do {
+        printf("Nhap ngay tao the thu vien: ");
+        scanf("%d", &libraryCardDate[readerCount]);
+        if (libraryCardDate[readerCount] < 1 || libraryCardDate[readerCount] > 31) {
+            printf("Ngay khong hop le. Vui long nhap lai!\n");
+        }
+    } while (libraryCardDate[readerCount] < 1 || libraryCardDate[readerCount] > 31);
 
-	printf("Nhap ngay, thang, nam tao the thu vien: ");
-	scanf("%d %d %d", &libraryCardDate[readerCount], &libraryCardMonth[readerCount], &libraryCardYear[readerCount]);
+    do {
+        printf("Nhap thang tao the thu vien: ");
+        scanf("%d", &libraryCardMonth[readerCount]);
+        if (libraryCardMonth[readerCount] < 1 || libraryCardMonth[readerCount] > 12) {
+            printf("Thang khong hop le. Vui long nhap lai!\n");
+        }
+    } while (libraryCardMonth[readerCount] < 1 || libraryCardMonth[readerCount] > 12);
+
+    do {
+        printf("Nhap nam tao the thu vien: ");
+        scanf("%d", &libraryCardYear[readerCount]);
+        if (libraryCardYear[readerCount] < 1900 || libraryCardYear[readerCount] > 2024) {
+            printf("Nam khong hop le. Vui long nhap lai!\n");
+        }
+    } while (libraryCardYear[readerCount] < 1900 || libraryCardYear[readerCount] > 2024);
 
 	expiredCardYear[readerCount] = libraryCardYear[readerCount] + 4;
 

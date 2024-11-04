@@ -58,9 +58,17 @@ int ThemSach(int bookISBN[], char bookName[][MaxNameLen], char authName[][MaxNam
 	fgets(Publisher[bookCount], MaxNameLen, stdin);
 	//Xoa dau "\n" xuong dong
 	Publisher[bookCount][strcspn(Publisher[bookCount], "\n")] = '\0';
-
-	printf("Nhap nam xuat ban: ");
-	scanf("%d", &PublishYear[bookCount]);
+	//Nhap nam xuat ban, nam xuat ban khong them lon hon 2024
+	do
+	{
+		printf("Nhap nam xuat ban: ");
+		scanf("%d", &PublishYear[bookCount]);
+		if (PublishYear[bookCount] > 2024)
+		{
+			printf("Nam xuat ban sach khong hop le. Vui long nhap lai!\n");
+		}
+		
+	} while (PublishYear[bookCount] > 2024);
 
 	printf("Nhap the loai sach: ");
 	getchar();

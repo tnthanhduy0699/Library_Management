@@ -1,3 +1,9 @@
+/*
+Programmer: Tran Nguyen Thanh Duy - 24880013
+OS: MacOS
+Code editor: Visual Studio Code.
+*/ 
+
 #include <stdio.h>
 #include <string.h>
 #include "DocGia.h"
@@ -7,6 +13,7 @@
 #define MaxReader 100
 #define MaxNameLen 50
 #define MaxBook 100
+#define MaxBookPerReader 3
 
 int main()
 {
@@ -36,10 +43,13 @@ int main()
 	int bookAmount[MaxBook];
 	int bookCount = 0;
 	int opt;
-
+	//Mang chua thong tin dung de lap phieu muon/tra sach
 	int borrowDate[MaxBook];
 	int borrowMonth[MaxBook];
 	int borrowYear[MaxBook];
+	int returnPlanedDate[MaxBook];
+	int returnPlanedMonth[MaxBook];
+	int returnPlanedYear[MaxBook];
 	do
 	{
 		printf("*** Ung Dung Quan Ly Thu Vien ***\n");
@@ -106,7 +116,7 @@ int main()
 			TimKiemSach_TenSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);
 			break;
 		case 13:
-			LapPhieuMuonSach(readerNo, borrowDate, borrowMonth, borrowYear, bookISBN, readerCount, bookCount);
+			LapPhieuMuonSach(readerNo, borrowDate, borrowMonth, borrowYear, bookISBN, returnPlanedDate, returnPlanedMonth, returnPlanedYear, readerCount, bookCount);
 			break;	
 		case 15:
 			ThongKeSoLuongSach(bookISBN, bookName, authName, Publisher, PublishYear, bookType, bookPrice, bookAmount, bookCount);

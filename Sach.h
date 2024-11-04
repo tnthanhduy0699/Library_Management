@@ -1,5 +1,6 @@
 #define MaxBook 100
 #define MaxNameLen 50
+#define MaxBookPerReader 3
 
 // Khai bao ham;
 
